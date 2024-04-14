@@ -35,32 +35,23 @@ void processEmployeesAndMetricsByDepartment(const std::vector<Employee>& employe
     std::vector<std::pair<Employee, PerformanceMetrics>> departmentData;
     
     // Query employees and their performance metrics belonging to the specified department
-    #pragma omp parallel sections
-    {
-        #pragma omp section
-        {
-            for (size_t i = 0; i < employees.size(); ++i) {
-                if (employees[i].department == department) {
-                    departmentData.push_back({employees[i], performanceMetrics[i]});
-                }
-            }
+    #pragma omp parallel for
+    for (size_t i = 0; i < employees.size(); ++i) {
+        if (employees[i].department == department) {
+            #pragma omp critical
+            departmentData.push_back({employees[i], performanceMetrics[i]});
         }
     }
 
     // Process the queried data
-    #pragma omp parallel sections
-    {
-        #pragma omp section
-        {
-            for (size_t i = 0; i < departmentData.size(); ++i) {
-                const Employee& employee = departmentData[i].first;
-                const PerformanceMetrics& metrics = departmentData[i].second;
-                // Simulate some complex processing operation
-                // Here, we're just printing the details of each employee and their performance metrics
-                std::cout << "ID: " << employee.id << ", Name: " << employee.name << ", Age: " << employee.age << ", Department: " << employee.department
-                        << ", Productivity: " << metrics.productivity << ", Efficiency: " << metrics.efficiency << std::endl;
-            }
-        }
+    #pragma omp parallel for
+    for (size_t i = 0; i < departmentData.size(); ++i) {
+        const Employee& employee = departmentData[i].first;
+        const PerformanceMetrics& metrics = departmentData[i].second;
+        // Simulate some complex processing operation
+        // Here, we're just printing the details of each employee and their performance metrics
+        std::cout << "ID: " << employee.id << ", Name: " << employee.name << ", Age: " << employee.age << ", Department: " << employee.department
+                << ", Productivity: " << metrics.productivity << ", Efficiency: " << metrics.efficiency << std::endl;
     }
 }
 
