@@ -5,7 +5,7 @@
 - In the initial section, the employees are queried based on department in parallel using the #pragma omp section directive.
 - Each thread operates on a different portion of the data, allowing multiple employees to be processed simultaneously.
 
-2. Task Parallelism:
+2. Task Parallelism/Query Parallelism:
 - Task parallelism is also utilized in the processEmployeesAndMetricsByDepartment function, where different sections of code are executed in parallel.
 - Two sections are defined using #pragma omp parallel sections.
   - In the first section, employees are queried based on department.
