@@ -34,3 +34,7 @@ Graphs:
 Graph 1: Plot speedup with respect to the number of processing elements for different problem sizes (N).
 Graph 2: Plot speedup with respect to N for different numbers of processing elements.
 Overall, this code demonstrates the use of OpenMP to achieve data and task parallelism, allowing for efficient processing of large datasets.
+
+CONTRIBUTORS:
+- **[Shruthi Mohan](https://github.com/shruthimohan03)**
+- **[Pravalika Arunkumar](https://github.com/pravalikaarunkumar)**
