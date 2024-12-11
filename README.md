@@ -1,40 +1,53 @@
-# Parallel-Database-Architecture
+# Parallel Database Architecture
 
-1. Data Parallelism:
-- Data parallelism is achieved in the processEmployeesAndMetricsByDepartment function, where the task of querying and processing employees based on department is divided among multiple threads.
-- In the initial section, the employees are queried based on department in parallel using the #pragma omp section directive.
-- Each thread operates on a different portion of the data, allowing multiple employees to be processed simultaneously.
+This project demonstrates the use of OpenMP to parallelize database operations, specifically querying and processing employee and performance metrics data.
 
-2. Task Parallelism/Query Parallelism:
-- Task parallelism is also utilized in the processEmployeesAndMetricsByDepartment function, where different sections of code are executed in parallel.
-- Two sections are defined using #pragma omp parallel sections.
-  - In the first section, employees are queried based on department.
-  - In the second section, the queried data is processed.
+## Parallelism Techniques
 
-3. Architecture Parallelism:
-- OpenMP enables architecture parallelism by allowing the code to execute concurrently on multiple cores of the underlying processor architecture.
-- The #pragma omp parallel sections directive in the code splits the execution of different sections of code into multiple threads, which can execute concurrently on different processor cores.
-- Each thread executes a different section of code, harnessing the processing power of multiple cores simultaneously.
+### Data Parallelism
+* Achieved in the `processEmployeesAndMetricsByDepartment` function.
+* Divides the task of querying and processing employees based on department among multiple threads using `#pragma omp section`.
+* Each thread processes a portion of the data concurrently, improving performance.
 
-4. Code Description:
-- The Employee and PerformanceMetrics structs represent the data structure for employees and their performance metrics.
-- The generateEmployeesWithPerformance function generates a dataset of employees and their performance metrics based on the specified number of employees.
-- The processEmployeesAndMetricsByDepartment function queries and processes employees and their performance metrics based on a specified department.
-- Within this function, two sections are executed in parallel:
-  - The first section queries employees based on department and populates the departmentData vector.
-  - The second section processes the queried data and prints the details of each employee and their performance metrics.
-- In the main function, a dataset is generated and then processed using the processEmployeesAndMetricsByDepartment function.
-  
-5. Performance Metrics:
-To analyze the performance of this code, you can measure the execution time for different problem sizes (number of employees) and different numbers of processing elements (threads).
-By varying the problem size (numEmployees) and the number of processing elements (through environment variables like OMP_NUM_THREADS), you can collect data on execution time.
-Using this data, you can calculate speedup and parallel efficiency for different problem sizes and numbers of processing elements.
-Graphs:
+### Task Parallelism/Query Parallelism
+* Also implemented in `processEmployeesAndMetricsByDepartment`.
+* Utilizes `#pragma omp parallel sections` to execute different code sections in parallel.
+  * One section queries employees by department.
+  * Another section processes the retrieved data.
 
-Graph 1: Plot speedup with respect to the number of processing elements for different problem sizes (N).
-Graph 2: Plot speedup with respect to N for different numbers of processing elements.
-Overall, this code demonstrates the use of OpenMP to achieve data and task parallelism, allowing for efficient processing of large datasets.
+### Architecture Parallelism
+* OpenMP enables the code to execute concurrently on multiple processor cores.
+* The `#pragma omp parallel sections` directive splits execution into threads, each utilizing a different core for concurrent processing.
 
-CONTRIBUTORS:
-- **[Shruthi Mohan](https://github.com/shruthimohan03)**
-- **[Pravalika Arunkumar](https://github.com/pravalikaarunkumar)**
+## Code Breakdown
+
+### Data Structures
+* `Employee` and `PerformanceMetrics` structs define data structures for employee and performance data.
+
+### Data Generation
+* `generateEmployeesWithPerformance` function generates a dataset of employees and their performance metrics based on a specified number of employees.
+
+### Parallel Processing Function
+* `processEmployeesAndMetricsByDepartment` queries and processes data based on department.
+  * Two sections are executed in parallel:
+    * First section queries employees and populates `departmentData`.
+    * Second section processes the data and prints details of each employee and their metrics.
+
+### Main Function
+* Generates a dataset and processes it using `processEmployeesAndMetricsByDepartment`.
+
+## Performance Analysis
+* Measures execution time for varying numbers of employees and processing elements (threads).
+* Adjusts problem size (numEmployees) and processing elements (OMP_NUM_THREADS) to collect execution time data.
+* Calculates speedup and parallel efficiency based on the data.
+
+### Graphs
+* **Graph 1:** Speedup vs. Processing Elements for different problem sizes (N).
+![image](https://github.com/user-attachments/assets/b824a55f-7023-4f7c-bb6f-597ca6c6f91d)
+
+* **Graph 2:** Speedup vs. Problem Size (N) for different processing elements.
+![image](https://github.com/user-attachments/assets/9ed8a5db-6678-4c9f-95eb-054a43bdee30)
+
+## Contributors
+* [Shruthi Mohan](https://github.com/shruthimohan03)
+* [Pravalika Arunkumar](https://github.com/pravalikaarunkumar)
